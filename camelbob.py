@@ -44,5 +44,10 @@ for line in lines:
 canvas = ImageDraw.Draw(image)
 
 image.save(filepath)
-command = "impbcopy " + filepath
+command = ""
+if sys.platform.startswith('linux'):
+    command = "xclip -selection clipboard -t image/jpg -i " + filepath
+    print(command)
+elif sys.platform.startswith('darwin'):
+    command = "impbcopy " + filepath
 os.system(command)
